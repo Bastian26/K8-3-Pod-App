@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-service
+spec:
+  selector:
+    app: users
+  # Created firm from outside reachable address - distributes incoming requests about all pods, no matter on which node the pod
+  type: LoadBalancer
+  ports:
+  - protocol: 'TCP'
+    # Outside facing port - port on Service Ip Address
+    port: 8080
+    # Port inside of the pod inside of the container to which the request will be forwarded - Container internal port
+    targetPort: 8080

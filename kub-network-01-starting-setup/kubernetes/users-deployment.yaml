@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+      - name: users
+        image: norx26/kub-demo-users:latest
+        env: 
+          - name: AUTH_ADDRESS
+            # can be used because both containers run in the same pod
+            #localhost - would be possible if both are in the same pod
+            #value: "10.108.45.149"
+            # use a domain/service name -> . namespace - so you can easy use services
+            value: "auth-service.default"
+      #- name: auth
+      #  image: norx26/kub-demo-auth:latest

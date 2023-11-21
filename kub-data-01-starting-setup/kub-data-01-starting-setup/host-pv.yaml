@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  capacity: 
+    storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: standard
+  accessModes:
+    # Read and Write from multiple Pods on one Node
+    - ReadWriteOnce
+    # ReadOnly from multiple Pods on on multiple Nodes can claim the same volume - notz possible on Minikube (1 Pod)
+    # - ReadOnlyMany
+    # Read and Write from multiple Pods on on multiple Nodes
+    # - ReadWriteMany
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate
